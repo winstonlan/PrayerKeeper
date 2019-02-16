@@ -65,7 +65,7 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => DetailWidget(name: record.name),
+            builder: (context) => DetailWidget(documentId: data.documentID),
           )
         );
       },

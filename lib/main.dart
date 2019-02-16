@@ -28,6 +28,15 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
         title: new Text('Prayer Keeper')
       ),
       body: _buildBody(context),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: (){},
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.green[400],
+        child: Container(height: 50.0),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 

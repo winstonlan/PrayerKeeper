@@ -12,7 +12,6 @@ final dummySnapshot = [
 class PrayerKeeperApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return MaterialApp(
       title: 'Prayer Keeper',
       home: new PrayerKeeper(),

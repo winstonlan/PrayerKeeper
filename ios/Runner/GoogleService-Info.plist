@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1007282471440-ist99adavbrk1p1u39iif9gqdbreo7fs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1007282471440-ist99adavbrk1p1u39iif9gqdbreo7fs</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAMMcjj1BZ4ZT2q9pK9mhR_2ux-SST7xEU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1007282471440</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.yourcompany.prayerKeeper</string>
+	<key>PROJECT_ID</key>
+	<string>prayerkeeper-9712a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>prayerkeeper-9712a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1007282471440:ios:2e36bbde6111b2d2</string>
+	<key>DATABASE_URL</key>
+	<string>https://prayerkeeper-9712a.firebaseio.com</string>
+</dict>
+</plist>

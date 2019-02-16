@@ -3,12 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(new PrayerKeeperApp());
 
-final dummySnapshot = [
-  {"name": "Michael Scott"},
-  {"name": "Jim Halpert"},
-  {"name": "Pam Beasley"},
-];
-
 class PrayerKeeperApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -38,26 +32,46 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return _buildPeopleList(context, dummySnapshot);
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('people').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+
+        return _buildPeopleList(context, snapshot.data.documents);
+      }
+    );
   }
 
-  Widget _buildPeopleList(BuildContext context, List<Map> snapshot) {
+  Widget _buildPeopleList(BuildContext context, List<DocumentSnapshot> snapshot) {
     return ListView.builder(
-      itemCount: dummySnapshot.length * 2,
+      itemCount: snapshot.length * 2,
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
         if (i.isOdd) return Divider();
 
         final index = i ~/ 2;
-        return _buildRow(dummySnapshot[index]);
+        return _buildRow(snapshot[index]);
       }
     );
   }
 
-  Widget _buildRow(Map data) {
+  Widget _buildRow(DocumentSnapshot data) {
+    final record = Record.fromSnapshot(data);
     return ListTile(
-      title: Text(data["name"]),
+      title: Text(record.name),
     );
   }
+}
+
+class Record {
+  final String name;
+  final DocumentReference reference;
+
+  Record.fromMap(Map<String, dynamic> map, {this.reference})
+    : assert(map['name'] != null),
+      name = map['name'];
+
+  Record.fromSnapshot(DocumentSnapshot snapshot)
+    : this.fromMap(snapshot.data, reference: snapshot.reference);
 }
 

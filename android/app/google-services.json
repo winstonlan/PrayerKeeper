@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1007282471440",
+    "firebase_url": "https://prayerkeeper-9712a.firebaseio.com",
+    "project_id": "prayerkeeper-9712a",
+    "storage_bucket": "prayerkeeper-9712a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1007282471440:android:567a7a016478bec7",
+        "android_client_info": {
+          "package_name": "com.yourcompany.prayerkeeper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1007282471440-uph1n7hglude74so16d4halvvcv55sib.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkONqfH8kRRzGnCw37JexBspUNzTn9xd8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

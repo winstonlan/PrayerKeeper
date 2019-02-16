@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(new PrayerKeeperApp());
 
@@ -33,6 +34,31 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
       appBar: new AppBar(
         title: new Text('Prayer Keeper')
       ),
+      body: _buildBody(context),
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    return _buildPeopleList(context, dummySnapshot);
+  }
+
+  Widget _buildPeopleList(BuildContext context, List<Map> snapshot) {
+    return ListView.builder(
+      itemCount: dummySnapshot.length * 2,
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (context, i) {
+        if (i.isOdd) return Divider();
+
+        final index = i ~/ 2;
+        return _buildRow(dummySnapshot[index]);
+      }
+    );
+  }
+
+  Widget _buildRow(Map data) {
+    return ListTile(
+      title: Text(data["name"]),
     );
   }
 }
+

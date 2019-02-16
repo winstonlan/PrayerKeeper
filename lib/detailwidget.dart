@@ -19,7 +19,7 @@ class _DetailWidgetState extends State<DetailWidget> {
       ),
       body: _buildBody(context),
       floatingActionButton: new FloatingActionButton(
-        onPressed: null,
+        onPressed: _showDialog,
         child: new Icon(Icons.add),
       ),
     );
@@ -53,6 +53,40 @@ class _DetailWidgetState extends State<DetailWidget> {
   Widget _buildPrayerRequest(DocumentSnapshot data) {
     return ListTile(
       title: Text(data['detail'])
+    );
+  }
+
+  _showDialog() async {
+    return showDialog(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Enter Prayer Request"),
+          content: new Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              new TextField(
+                  decoration: new InputDecoration(hintText: 'Dear God...'),
+              )
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('ADD'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }
     );
   }
 }

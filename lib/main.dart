@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'detailwidget.dart';
+
 void main() => runApp(new PrayerKeeperApp());
 
 class PrayerKeeperApp extends StatelessWidget {
@@ -59,6 +61,14 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
     final record = Record.fromSnapshot(data);
     return ListTile(
       title: Text(record.name),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailWidget(name: record.name),
+          )
+        );
+      },
     );
   }
 }

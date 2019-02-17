@@ -28,23 +28,13 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text('Prayer Keeper'),
-        backgroundColor: Colors.greenAccent[400],
+//        backgroundColor: Colors.greenAccent[400],
       ),
       body: _buildBody(context),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: (){
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => SecondRoute()),
-          );
-        },
+        onPressed: _addContactDialogue,
       ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.greenAccent[400],
-        child: Container(height: 50.0),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 
@@ -86,6 +76,44 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
       },
     );
   }
+
+  _addContactDialogue() async{
+    final contactTextFieldController = TextEditingController();
+
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context){
+        return AlertDialog(
+          title: Text("Who am I praying for?"),
+          content: new Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              new TextField(
+                decoration: new InputDecoration(),
+                controller: contactTextFieldController,
+              )
+            ],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed:(){
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('Add'),
+              onPressed: (){
+                Firestore.instance.collection('people').document().setData({'name': contactTextFieldController.text});
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
 
 class Record {
@@ -100,77 +128,5 @@ class Record {
     : this.fromMap(snapshot.data, reference: snapshot.reference);
 }
 
-// ------------- SECOND ROUTE --------------------
-
-class SecondRoutePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Add Prayer Contact',
-      home: new SecondRoute(),
-    );
-  }
-}
-
-class SecondRoute extends StatefulWidget {
-  @override
-  _SecondRouteState createState() {
-    return _SecondRouteState();
-  }
-}
-
-class _SecondRouteState extends State<SecondRoute> {
-  final formKey = GlobalKey<FormState>();
-  String _name, _prayer;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title: Text("Add Prayer Contact.")
-      ),
-      body: Card(
-        child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  TextFormField(
-                    decoration: InputDecoration(
-                        labelText: 'Name'
-                    ),
-                    onSaved: (input) => _name = input,
-                  ),
-//                  TextFormField(
-//                    decoration: InputDecoration(
-//                        labelText: 'Prayer'
-//                    ),
-//                    onSaved: (input) => _prayer = input,
-//                  ),
-                  RaisedButton(
-                    onPressed: (){
-                      _submit();
-                      Navigator.pop(context);
-                    },
-                    child: Text('Create Contact'),
-                  ),
-                ]
-            ),
-          ),
-        ),
-      )
-    );
-    }
-
-  void _submit() {
-    formKey.currentState.save();
-    print(_name);
-//    print(_prayer);
-    Firestore.instance.collection('people').document().setData({'name':_name});
-
-  }
-}
 
 

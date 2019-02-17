@@ -20,7 +20,7 @@ class _DetailWidgetState extends State<DetailWidget> {
       body: _buildBody(context),
       floatingActionButton: new FloatingActionButton(
         onPressed: _showDialog,
-        child: new Icon(Icons.add),
+        child: new Icon(Icons.create),
       ),
     );
   }

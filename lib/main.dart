@@ -55,7 +55,6 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, i) {
         if (i.isOdd) return Divider();
-
         final index = i ~/ 2;
         return _buildRow(snapshot[index]);
       }
@@ -66,6 +65,9 @@ class _PrayerKeeperState extends State<PrayerKeeper> {
     final record = Record.fromSnapshot(data);
     return ListTile(
       title: Text(record.name),
+      leading: CircleAvatar(
+//          backgroundColor: Colors.lightBlue[400],
+          child: Text(record.name[0])),
       onTap: () {
         Navigator.push(
           context,

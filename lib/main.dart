@@ -150,7 +150,7 @@ class _SecondRouteState extends State<SecondRoute> {
 //                    onSaved: (input) => _prayer = input,
 //                  ),
                   RaisedButton(
-                    onPressed: (){
+                    onPressed: () {
                       _submit();
                       Navigator.pop(context);
                     },

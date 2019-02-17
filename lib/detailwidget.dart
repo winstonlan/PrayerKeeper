@@ -15,11 +15,12 @@ class _DetailWidgetState extends State<DetailWidget> {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Prayer Requests')
+        title: new Text('Prayer Requests'),
+
       ),
       body: _buildBody(context),
       floatingActionButton: new FloatingActionButton(
-        onPressed: _showDialog,
+        onPressed: _showAddDialog,
         child: new Icon(Icons.add),
       ),
     );
@@ -52,11 +53,17 @@ class _DetailWidgetState extends State<DetailWidget> {
 
   Widget _buildPrayerRequest(DocumentSnapshot data) {
     return ListTile(
-      title: Text(data['detail'])
+      title: Text(data['detail']),
+      onTap: () => _showEditDialog(
+        data.documentID
+      ),
     );
   }
 
-  _showDialog() async {
+  _showAddDialog() async {
+    final userDocumentId = widget.documentId;
+    final textFieldController = TextEditingController();
+
     return showDialog(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -67,7 +74,10 @@ class _DetailWidgetState extends State<DetailWidget> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               new TextField(
-                  decoration: new InputDecoration(hintText: 'Dear God...'),
+                decoration: new InputDecoration(hintText: 'Dear God...'),
+                controller: textFieldController,
+                keyboardType: TextInputType.multiline,
+                maxLines: 5,
               )
             ],
           ),
@@ -81,6 +91,58 @@ class _DetailWidgetState extends State<DetailWidget> {
             FlatButton(
               child: Text('ADD'),
               onPressed: () {
+                Firestore.instance
+                  .collection('people/$userDocumentId/prayer-req')
+                  .document().setData({'detail': textFieldController.text});
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      }
+    );
+  }
+
+  _showEditDialog(String prayerId) async {
+    final userDocumentId = widget.documentId;
+    final textFieldController = TextEditingController();
+
+    Firestore.instance
+      .collection('people/$userDocumentId/prayer-req')
+      .document(prayerId)
+      .get().then((data) {
+      textFieldController.text = data['detail'];
+    });
+
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Edit Prayer Request"),
+          content: new Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              new TextField(
+                controller: textFieldController,
+                keyboardType: TextInputType.multiline,
+                maxLines: 5,
+              ),
+            ]
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('CANCEL'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            FlatButton(
+              child: Text('SAVE'),
+              onPressed: () {
+                Firestore.instance
+                  .collection('people/$userDocumentId/prayer-req')
+                  .document().updateData({'detail': textFieldController.text});
                 Navigator.of(context).pop();
               },
             ),
